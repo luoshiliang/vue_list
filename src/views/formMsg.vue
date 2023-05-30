@@ -1,8 +1,8 @@
 <template>
     <div class="formbox">
         <h2>完善个人信息</h2>
-        <div class="formMsg">
-            <form action="">
+        <div class="formMsg" v-show="formshow">
+            <form>
                 <ul>
                     <li>
                         <span>姓名:</span>
@@ -19,7 +19,8 @@
                     </li>
                     <li>
                         <span>婚姻状态:</span>
-                        已婚<input type="radio" name="marriage" v-model="form.marriage" value="已婚">未婚<input type="radio" name="marriage" v-model="form.marriage" value="未婚">
+                        已婚<input type="radio" name="marriage" v-model="form.marriage" value="已婚">未婚<input type="radio"
+                            name="marriage" v-model="form.marriage" value="未婚">
                     </li>
                     <li>
                         <span>爱好:</span>
@@ -50,9 +51,46 @@
                         <span>出生日期:</span>
                         <input type="date" name="date" v-model="form.date">
                     </li>
-                    <li><input type="submit" value="确认提交"></li>
+                    <li><input type="submit" value="确认提交" @click.prevent="sub"></li>
                 </ul>
             </form>
+        </div>
+        <div class="msgtab" v-show="tabshow">
+            <table border="1" cellspacing="0">
+                <tr>
+                    <td>年龄</td>
+                    <td colspan="2">{{ tablemsg.age }}</td>
+
+                </tr>
+                <tr>
+                    <td>性别</td>
+                    <td>{{ tablemsg.sex }}</td>
+                </tr>
+                <tr>
+                    <td>婚姻</td>
+                    <td>{{ tablemsg.marriage }}</td>
+                </tr>
+                <tr>
+                    <td>爱好</td>
+                    <td><span v-for="(item, index) in tablemsg.hobby || []" :key="index">{{ item || '无' }}</span></td>
+                </tr>
+                <tr>
+                    <td>年底旅游地</td>
+                    <td>{{ tablemsg.city || '不旅游' }}</td>
+                </tr>
+                <tr>
+                    <td>喜欢的颜色</td>
+                    <td>{{ tablemsg.color || '没有特别喜欢' }}</td>
+                </tr>
+                <tr>
+                    <td>自我介绍</td>
+                    <td>{{ tablemsg.per || '暂无此人自我介绍' }}</td>
+                </tr>
+                <tr>
+                    <td>出生日期</td>
+                    <td>{{ tablemsg.date || '不详' }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </template>
@@ -65,14 +103,24 @@ export default {
             form: {
                 name: '',
                 age: '',
-                sex: '',
-                marriage: '',
-                hobby:[],
-                city:'',
-                color:'',
-                date:'',
-                per:''
-            }
+                sex: '男',
+                marriage: '未婚',
+                hobby: [],
+                city: '',
+                color: '',
+                date: '',
+                per: ''
+            },
+            formshow: true,
+            tabshow: false,
+            tablemsg: {}
+        }
+    },
+    methods: {
+        sub() {
+            this.tablemsg = this.form
+            this.formshow = false
+            this.tabshow = true
         }
     }
 }
@@ -102,4 +150,15 @@ export default {
 .formMsg ul li span {
     margin-right: 20px;
     font-size: 18px;
-}</style>
+}
+
+.msgtab table {
+    width: 300px;
+    height: 400px;
+}
+
+.msgtab table tr td {
+    width: 100px;
+    height: 50px;
+}
+</style>
