@@ -20,6 +20,7 @@
             <el-button type="primary" @click="shoe">鞋子卖场</el-button>
             <el-button type="primary" @click="axioslx">axios</el-button>
             <el-button type="primary" @click="elstudent">el学生管理</el-button>
+            <el-button type="primary" @click="router1">router练习</el-button>
         </el-drawer>
     </div>
 </template>
@@ -70,6 +71,11 @@ export default {
         elstudent(){
             this.$router.push({
                 name: 'elstudent'
+            }).catch(err => { })
+        },
+        router1(){
+            this.$router.push({
+                name: 'router1'
             }).catch(err => { })
         }
     }
